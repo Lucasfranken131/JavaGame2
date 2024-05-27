@@ -35,7 +35,7 @@ public abstract class Entity {
         return this.attack;
     }
 
-    public int getMaxHp() {
+    public int getMaxHP() {
         return this.maxHP;
     }
 

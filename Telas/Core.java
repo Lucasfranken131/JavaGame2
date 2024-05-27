@@ -69,7 +69,7 @@ public class Core {
                 musica.playAudio("./audio/field.wav");
                 break;
             case "Cura":
-                player.cura();
+                player.cure(player);
                 break;
             default:
                 break;

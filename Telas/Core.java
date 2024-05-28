@@ -5,9 +5,10 @@ import Entidades.Player;
 import Entidades.Enemy;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
 public class Core {
-    Player player = new Player("player.png","name", 50, 50, 10, 20, 50, 50, 10, 1);
+    Player player = new Player("player.png","name", 50, 50, 10,10, 20, 50, 50, 10, 1);
     Enemy enemy = criarInimigo();
     Musica musica = new Musica();
     private JFrame tela;
@@ -37,7 +38,7 @@ public class Core {
     };
 
     String[][] opcoesBatalha = {
-            { "Porrada", "Soco", "Tiro de Trabuco", "Paulada" },
+            { "Porrada", "Fireball", "Frost", "Paulada" },
             // {"Magia","Fogareu","Cura",""},
             { "Cura", "Fugir", "", "" }
     };
@@ -61,7 +62,20 @@ public class Core {
                 enemy.setHP(enemy.getHP() - dano);
                 dano = enemy.Attack(player);
                 player.setHP(player.getHP() - dano);
-                System.out.println("dano");
+                break;
+            case "Fireball":
+                dano = player.castSpell("fireball", player, enemy);
+                System.out.println(dano);
+                enemy.setHP(enemy.getHP() - dano);
+                dano = enemy.Attack(player);
+                player.setHP(player.getHP() - dano);
+                break;
+            case "Frost":
+                dano = player.castSpell("frost", player, enemy);
+                System.out.println(dano);
+                enemy.setHP(enemy.getHP() - dano);
+                dano = enemy.Attack(player);
+                player.setHP(player.getHP() - dano);
                 break;
             case "Fugir":
                 battle = false;
@@ -69,7 +83,7 @@ public class Core {
                 musica.playAudio("./audio/field.wav");
                 break;
             case "Cura":
-                player.cure(player);
+                //player.cure(player);
                 break;
             default:
                 break;
@@ -399,19 +413,19 @@ public class Core {
     public Enemy criarInimigo() {
         int inimigo = (int) (Math.random() * 50) + 1;
         if(inimigo < 10) {
-            Orc enemy = new Orc(50, 50, 15, 10, 5);
+            Orc enemy = new Orc(50, 50, 15, 2, 10, 5, Arrays.asList("fogo"), Arrays.asList("gelo"));
             return enemy;
         }
         else if(inimigo > 10 && inimigo < 40) {
-            Kobold enemy = new Kobold(15, 15, 8, 7, 15);
+            Kobold enemy = new Kobold(15, 15, 8, 5, 7, 15, Arrays.asList("fogo"), Arrays.asList("gelo"));
             return enemy;
         }
         else if(inimigo > 40 && inimigo < 80) {
-            Goblin enemy = new Goblin(10, 10, 10, 5, 10);
+            Goblin enemy = new Goblin(10, 10, 10, 10, 5, 10, Arrays.asList("fogo"), Arrays.asList("gelo"));
             return enemy;
         }
         else {
-            Bat enemy = new Bat(5, 5, 5, 5, 15);
+            Bat enemy = new Bat(5, 5, 5, 5, 5, 15, Arrays.asList("fogo"), Arrays.asList("gelo"));
             return enemy;
         }
     }

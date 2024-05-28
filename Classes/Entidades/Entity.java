@@ -1,21 +1,30 @@
 package Entidades;
+
+import java.util.ArrayList;
+import java.util.List;
+import Magicas.Spell;
+
 public abstract class Entity {
     protected String image;
     protected String name;
     protected int HP;
     protected int maxHP;
     protected int attack;
+    protected int magic;
     protected int defense;
     protected int speed;
+    private List<Spell> spells;
 
-    public Entity(String image, String name, int HP, int maxHP, int attack, int defense, int speed) {
+    public Entity(String image, String name, int HP, int maxHP, int attack, int magic, int defense, int speed) {
         this.image = image;
         this.name = name;
         this.HP = HP;
         this.maxHP = maxHP;
         this.attack = attack;
+        this.magic = magic;
         this.defense = defense;
         this.speed = speed;
+        this.spells = new ArrayList<>();
     }
 
     public String getImage() {
@@ -33,6 +42,10 @@ public abstract class Entity {
 
     public int getAttack() {
         return this.attack;
+    }
+
+    public int getMagic() {
+        return this.magic;
     }
 
     public int getMaxHP() {
@@ -70,6 +83,10 @@ public abstract class Entity {
             damage = this.attack * this.attack / enemy.getDefense();
         }
         return damage;
+    }
+
+    public void addSpell(Spell spell) {
+        spells.add(spell);
     }
 
     public int Attack(Entity enemy) {

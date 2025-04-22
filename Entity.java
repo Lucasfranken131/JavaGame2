@@ -4,6 +4,7 @@ public abstract class Entity {
     public int attack;
     public int defense;
     public int speed;
+    public boolean canAct;
 
     public Entity(String name, double hp, int attack, int defense, int speed) {
         this.name = name;
@@ -11,6 +12,24 @@ public abstract class Entity {
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
+        canAct = true;
+    }
+    
+    public void Dano(Entity enemy) {
+        verifyAction();
+        if(this.canAct == true) {
+            if(enemy.defense > this.attack) {
+                double danoE = this.attack * 0.25;
+                enemy.setHP(enemy.hp - danoE);
+                System.out.println("Dano foi: " + danoE);
+            }
+            else {
+                double danoE = this.attack * 0.5;
+                enemy.setHP(enemy.hp - danoE);
+                System.out.println("Dano foi: " + danoE);
+            }
+        }
+        System.out.println("Vida do "+ enemy.name+ ": " + enemy.hp);
     }
 
     public void shout() {
@@ -21,4 +40,15 @@ public abstract class Entity {
     public void setHP(double hp) {
         this.hp = hp;
     }
-}
+
+    public void setCanAct(boolean canAct) {
+        this.canAct = canAct;
+    }
+
+    public void verifyAction() {
+        if(this.hp <= 0) {
+            setCanAct(false);
+            setHP(0);
+        }
+    }
+} 
